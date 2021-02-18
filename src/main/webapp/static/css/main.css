@@ -1,0 +1,8 @@
+body {
+    overflow-y: scroll;
+}
+
+#user-icon {
+    margin-left: 30px !important;
+    margin-top: 5px;
+}

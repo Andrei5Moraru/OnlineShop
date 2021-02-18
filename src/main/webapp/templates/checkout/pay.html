@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head.html :: head">
+</head>
+<head>
+
+<title>Payment page</title>
+
+</head>
+
+
+<body class="bg-light">
+
+<div class="container main-content" style="width: 60% !important;">
+
+    <div class="py-5 text-center">
+                <img src="" class="d-block mx-auto mb-4" th:src="@{/static/img/icon.png}" alt="logo" width="72"
+                     height="72">
+        <h2>Payment selection</h2>
+
+        <div class="d-block mx-auto mb-4">
+
+            <form action="/checkout-cart" method="POST">
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_51I6ONaH41PcOPuaUaWENc7iHUH5YWEGbV9Y2u6lQ1flqBzosgXJquEraMQkoT7Qk0Zl7uAfk00fFEdg9iZBACekX00dKizyLUY" data-name="Computer's Store Charge"
+                        data-description="Thank you for your purchase!" th:data-amount="${cartTotal}"
+                        th:data-image="@{/static/img/icon.png}"
+                        data-currency="usd">
+                </script>
+            </form>
+            <button class="btn btn-primary">Pay with PayPal</button>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

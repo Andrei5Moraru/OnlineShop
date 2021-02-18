@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<display-name>CodecoolShop Application</display-name>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/static/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ChargeController</servlet-name>
+		<servlet-class>com.codecool.shop.controller.payment.ChargeController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChargeController</servlet-name>
+		<url-pattern>/ChargeController</url-pattern>
+	</servlet-mapping>
+
+	<context-param>
+		<param-name>stripePublicKey</param-name>
+		<param-value>pk_test_51I6ONaH41PcOPuaUaWENc7iHUH5YWEGbV9Y2u6lQ1flqBzosgXJquEraMQkoT7Qk0Zl7uAfk00fFEdg9iZBACekX00dKizyLUY</param-value>
+	</context-param>
+	<context-param>
+		<param-name>stripeSecretKey</param-name>
+		<param-value>sk_test_51I6ONaH41PcOPuaUlusTIbfPnCM67iXCw4QWy64vyB4kTCqJrmgSkjgQe9tmi4MKfDA0KqFpSTyz0gmdTsf4XDch00Z7keObzc</param-value>
+	</context-param>
+
+</web-app>

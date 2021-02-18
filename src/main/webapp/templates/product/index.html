@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head.html :: head">
+</head>
+<head>
+    <link rel="stylesheet" href="/static/css/categories.css"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+</head>
+
+<body>
+<header th:replace="header.html :: nav"></header>
+
+<!--Wrapper -->
+<div class="container">
+    <div class="row" style="margin-top:80px;">
+
+        <!-- Categories & Suppliers -->
+        <div class="col-md-3" id="categories-div">
+            <div class="single category">
+                <h3 class="side-title">Categories</h3>
+                <form th:action="@{/}" method="POST" id="categories-form">
+                    <ul class="list-unstyled" th:each="category,iterStat : ${categories}">
+
+                        <li>
+                            <div class="categories-button">
+                                <button th:utext="${category.getName()}" name="categoryInput"
+                                        th:value="${category.getId()}"
+                                        th:style="${selectedCategory.getName() == category.getName() ? 'color: #ff173c !important;' : 'color: #666;'}"
+                                        type="submit">
+                                    Category
+                                </button>
+<!--                                <button class="pull-right" th:text="${category.getProductsAmount()}"-->
+<!--                                        name="categoryInput" th:value="${category.getId()}"-->
+<!--                                        type="submit"-->
+<!--                                        id="category-amount">-->
+<!--                                    Category Amount-->
+<!--                                </button>-->
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+
+
+                <!-- Suppliers -->
+                <h3 class="side-title suppliers-title">Suppliers</h3>
+                <form th:action="@{/}" method="POST" id="suppliers-form">
+                    <ul class="list-unstyled" th:each="supplier,iterStat : ${suppliers}">
+
+                        <li>
+                            <div class="categories-button">
+                                <button th:utext="${supplier.getName()}" name="supplierInput"
+                                        th:value="${supplier.getId()}"
+                                        th:style="${selectedSupplier.getName() == supplier.getName() ? 'color: #ff173c !important;' : 'color: #666;'}"
+                                        type="submit">
+                                    Supplier
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Main Content -->
+        <div class=" col-md-9">
+            <div id="products" class="row">
+                <div class="col col-sm-12 col-md-6 col-lg-4 align-items-center my-2 products"
+                     th:each="prod,iterStat : ${products}">
+                    <div class="card">
+                        <img class="card-img-top" src="http://placehold.it/400x250/000/fff"
+                             th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" th:alt="${prod.id} + '.jpg'"/>
+                        <div class="card-header" style="height:200px;">
+                            <h5 class="card-title" th:text="${prod.name}">Product name</h5>
+                            <p class="card-text text-muted" th:text="${prod.description}">Product description... </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text">
+                                <form action="/add-to-cart">
+                                    <button th:value="${prod.id}" class="btn btn-danger" type="submit"
+                                            name="addedProduct">Add to cart
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="footer.html :: copy"></footer>
+
+
+</body>
+</html>

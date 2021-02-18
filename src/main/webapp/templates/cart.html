@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head.html :: head"></head>
+<head>
+
+    <link rel="stylesheet" th:href="@{/static/css/categories.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/cart.css}"/>
+
+    <title>Cart</title>
+
+</head>
+
+<body>
+
+<header th:replace="header.html :: nav"></header>
+
+<div class="container">
+    <div class="row" style="margin-top:80px;">
+
+        <div class="col-md-9">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <span class="pull-right">(<strong
+                            th:text="${cartContent.getSize()}"> Cart Size</strong>) items</span>
+                    <h5>Items in your cart</h5>
+                </div>
+                <div th:each="lineItem,iterStat : ${cartContent.getItems()}">
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table shoping-cart-table">
+                                <tbody>
+                                <tr>
+                                    <td width="90">
+                                        <div class="cart-product-imitation">
+                                            <img class="card-img-top" src="http://placehold.it/400x250/000/fff"
+                                                 th:attr="src='/static/img/product_' + ${lineItem.getProduct().getId()} + '.jpg'"
+                                                 th:alt="${lineItem.getProduct().getId()} + '.jpg'"/>
+                                        </div>
+                                    </td>
+                                    <td class="desc">
+                                        <h3>
+                                            <a href="#" class="text-navy" th:text="${lineItem.getProduct().getName()}">
+                                                Product Name
+                                            </a>
+                                        </h3>
+                                        <p class="small" th:text="${lineItem.getProduct().getDescription()}">
+                                            Product Description
+                                        </p>
+                                        <!--                                        <dl class="small m-b-none">-->
+                                        <!--                                            <dt>Description lists</dt>-->
+                                        <!--                                            <dd>A description list is perfect for defining terms.</dd>-->
+                                        <!--                                        </dl>-->
+
+                                        <div class="m-t-sm">
+                                            <!--                                            <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift-->
+                                            <!--                                                package</a>-->
+                                            <!--                                            |-->
+                                            <form action="/remove-from-cart" method="POST">
+                                                <button th:value="${lineItem.getId()}" class="text-muted remove-btn"
+                                                        name="removedProduct"><i class="fa fa-trash"></i> Remove item
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+
+                                    <!--                                    <td>-->
+                                    <!--                                        $180,00-->
+                                    <!--                                        <s class="small text-muted">$230,00</s>-->
+                                    <!--                                    </td>-->
+                                    <td width="85">
+                                        <form action="/change-quantity">
+                                            <input type="hidden" th:value="${lineItem.getId()}" name="itemId">
+                                            <input type="number" class="form-control"
+                                                   th:placeholder="${lineItem.getQuantity()}" name="itemQuantity"
+                                                   min="1">
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <h4 th:text="${lineItem.getItemTotal()}">
+                                            $180,00
+                                        </h4>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <a href="/checkout" class="btn btn-danger pull-right"><i class="fa fa fa-shopping-cart"></i>
+                        Checkout
+                    </a>
+                    <a href="/" class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</a>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="ibox">
+                <div class="ibox-title"><h5>Cart Summary</h5></div>
+                <div class="ibox-content"><span> Total </span>
+                    <h2 class="font-bold" th:text="${cartTotal}"> Cart Total</h2>
+                    <hr>
+
+                    <div class="m-t-sm">
+                        <div class="btn-group"><a href="/checkout" class="btn btn-danger btn-sm"><i
+                                class="fa fa-shopping-cart"></i> Checkout</a>
+<!--                            <a href="/" class="btn btn-warning btn-sm">Cancel</a></div>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<footer th:replace="footer.html :: copy"></footer>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header class="container" th:fragment="nav">
+    <div class="row">
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-light">
+            <a class="navbar-brand" href="/"><img src="/static/img/logo.png" alt="logo"
+                                                  height="30px"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown show dropdown-user-icon">
+                            <img class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                                 id="user-icon" src="/static/img/user_icon.png">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a th:if="${session.get('user') != null}" class="dropdown-item" href="/logout">Logout</a>
+                                <a th:if="${session.get('user') != null}" class="dropdown-item"
+                                   th:href="@{/myprofile(id=${session.user.getId()})}">My Profile</a>
+                                <a th:if="${session.get('user') != null}" class="dropdown-item"
+                                   th:href="@{/myorder(id=${session.user.getId()})}">My Orders</a>
+
+                                <a th:if="${session.get('user') == null}" class="dropdown-item" href="/login">Login</a>
+                                <a th:if="${session.get('user') == null}" class="dropdown-item" href="/register">Register</a>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <form class="form-inline mt-2 mt-md-0">
+                    <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search for products"
+                           aria-label="Search">
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"><img
+                            src="/static/img/magnifier.svg"
+                            alt="search" height="20px">
+                    </button>
+                </form>
+                <a href="/cart" class="nav-item" style="text-decoration: none;">
+
+                    <img src="/static/img/cart.png" alt="cart-img" id="cart-img">
+                    <strong><span id="cart-items-count" class="" name="prod"
+                                  th:text="${productsInCart}"> 5</span></strong>
+                </a>
+
+
+            </div>
+        </nav>
+
+    </div>
+</header>
+
+</body>
+</html>
